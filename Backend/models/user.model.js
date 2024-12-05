@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { mongo } from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -20,14 +20,14 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     role: {
-      type: Number,
+      type: String,
       enum: ["student", "recruiter"],
       required: true,
     },
     profile: {
       bio: { type: String },
       skills: [{ type: String }],
-      resume: { type: String }, // Need to add resume file
+      resume: [{ type: String }], // URL to resume file
       resumeOriginalName: { type: String },
       company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       profilePhoto: {
@@ -38,4 +38,5 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
 export const User = mongoose.model("User", userSchema);
