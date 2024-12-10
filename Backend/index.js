@@ -13,18 +13,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOption = {
-  origin: "http//localhost:5173",
-  credentials: true,
-};
-app.use(cors(corsOption));
+
+app.use(cors({origin: "*",
+  credentials: true,}));
 
 const PORT = process.env.PORT || 3000;
 
-// For all API
+// // For all API
 app.use("/api/v1/user", userRoute);
+
+app.get('/', (req, res) => {
+  res.send("i am home page")
+})
 
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server running at port ${PORT}`);
 });
+
